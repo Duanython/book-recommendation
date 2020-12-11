@@ -1,0 +1,37 @@
+{% extends 'Base_login.html' %}
+{% block content %}
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    <div class="app-location">
+        <div class="row" style="font-size: large ">
+            <div class="col-xs-6"><h4><a href="{% url 'login' %}">登陆</a></h4></div>
+            <div class="col-xs-6"><h4><a href="{% url 'register' %}">注册</a></h4></div>
+        </div>
+
+        <form action="{% url 'register' %}" method='POST' autocomplete="on">
+            {% if message %}
+                <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            {% csrf_token %}
+            <div class="input-group input-group-lg" style="margin:0 auto 0.5em 3em ">
+                <span class="input-group-addon">账号</span>
+                <input type="text" class="form-control" placeholder="账号" name="username" value="{{ username }}">
+            </div>
+            <div class="input-group input-group-lg" style="margin:0 0 0.5em 3em ">
+                <span class="input-group-addon">密码</span>
+                <input type="password" class="form-control" placeholder="密码" name="password1" value="{{ password1 }}">
+            </div>
+            <div class="input-group input-group-lg" style="margin:0 0 0.5em 0.5em ">
+                <span class="input-group-addon">确认密码</span>
+                <input type="password" class="form-control" placeholder="确认密码"name="password2" value="{{ password2 }}">
+            </div>
+            <div class="input-group input-group-lg" style="margin:0 0 0.5em 3em ">
+                <span class="input-group-addon">邮箱</span>
+                <input type="email" class="form-control" placeholder="邮箱" name="email" value="{{ email }}">
+            </div>
+         <input type="submit" value="注册">
+        </form>
+
+    </div>
+{% endblock %}

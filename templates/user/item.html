@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{#style="background: #f3d19e"#}
+<body >
+<script>
+
+</script>
+{% block right-panel-content %}
+    <h3 class="text-center">{{ title }}</h3>
+    {% if  not books %}
+        <h3 class="text-center">对不起没有书籍</h3>
+    {% endif %}
+    <div id="content">
+{#        <ul class="list-inline row">#}
+             {% for book in books %}
+                  <div class="row col-sm-3 col-sm-offset-1" style="height:500px">
+                        <div class="thumbnail"> <img width="200px" height="300px"  src="/media/book_cover/{{ book.pic }}">
+    {#                      <div class="caption" contenteditable="true">#}
+                            <h3>{{ book.title }}</h3>
+                            <p>{{ book.intro | slice:":100" }}......</p>
+                            <p><a class="btn btn-primary" href="{% url 'book' book.id %}">详情</a></p>
+                          </div>
+    {#                    </div>#}
+                  </div>
+
+             {% endfor %}
+{#        </ul>#}
+        <div class="container-fluid" style="text-align: center">
+        <ul class="pagination" id="pager" >
+            {#上一页按钮开始#}
+            {# 如果当前页有上一页#}
+            {% if books.has_previous %}
+                {#  当前页的上一页按钮正常使用#}
+                <li class="previous"><a href="{{ path }}?page={{ books.previous_page_number }}">上一页</a></li>
+            {% else %}
+                {# 当前页的不存在上一页时,上一页的按钮不可用#}
+                <li class="previous disabled"><a href="#">上一页</a></li>
+            {% endif %}
+            {#上一页按钮结束#}
+            {# 页码开始#}
+            <li class="item active"><a href="{{ path }}?page={{ books.number }}">{{ books.number }}</a></li>
+            {#            <li class="item"><a href="{{ path }}?page={{ book.number|add:1 }}">{{ book.number|add:1 }}</a></li>#}
+            {#            <li class="item"><a href="{{ path }}?page={{ book.number|add:2 }}">{{ book.number|add:2 }}</a></li>#}
+            {#页码结束#}
+            {# 下一页按钮开始#}
+            {% if books.has_next %}
+                <li class="next"><a href="{{ path }}?page={{ books.next_page_number }}">下一页</a></li>
+            {% else %}
+                <li class="next disabled"><a href="#">下一页</a></li>
+            {% endif %}
+            <li class="item"><a href="#">
+                {{ books.number }}/{{ books.paginator.num_pages }}</a>
+            </li>
+        </ul>
+    </div>
+    </div>
+    </body>
+{% endblock %}
+

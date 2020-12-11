@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+<body >
+
+
+{% block right-panel-content %}
+    <div class="text-center" style="background-color: #66b1ff" >
+         <h1>
+            <p>{{ title }}</p>
+        </h1>
+    </div>
+
+    <ul class="list-inline" >
+        {% for book in books %}
+    <li style="background: #f3d19e" class="col-md-2 col-md-offset-1">
+       <p>
+        <h2 class="text-center">
+        <a href="{% url 'kind' book %}"> {{ book }}</a>
+       </h2>
+       </p>
+    </li>
+    {% endfor %}
+
+    </ul>
+
+
+{% endblock %}
+
+</body>
